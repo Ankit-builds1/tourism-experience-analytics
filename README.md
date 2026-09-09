@@ -4,6 +4,7 @@
 
 **Predicting traveller behaviour, satisfaction and attraction preference from 52,930 real tourism transactions.**
 
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Open%20the%20app-FF4B4B?logo=streamlit&logoColor=white)](https://tourism-experience-analytics121.streamlit.app/)
 [![CI](https://github.com/Ankit-builds1/tourism-experience-analytics/actions/workflows/ci.yml/badge.svg)](https://github.com/Ankit-builds1/tourism-experience-analytics/actions/workflows/ci.yml)
 [![Python](https://img.shields.io/badge/Python-3.12-3776AB?logo=python&logoColor=white)](https://www.python.org/)
 [![scikit-learn](https://img.shields.io/badge/scikit--learn-1.6.1-F7931E?logo=scikitlearn&logoColor=white)](https://scikit-learn.org/)
@@ -13,6 +14,8 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 *A regression, classification and recommendation system — built with leakage-free target encoding, honest baselines, and a documented account of what did **not** work.*
+
+### ▶ [Try the live app](https://tourism-experience-analytics121.streamlit.app/)
 
 </div>
 
