@@ -34,7 +34,7 @@ Nine Excel tables in a star schema around `Transaction`:
 | `Country.Country` inconsistently cased (`NIGERIA`) | value inspection | `.str.strip().str.title()` |
 | `VisitMode == 0` means "unknown" per the `Mode` table | join against `Mode` | filtered out |
 
-Row count after cleaning: **52,930 → 52,930** (no rows lost; every defect was structural rather than row-level). Every merge asserts `len(df) == len(transaction)` to catch a fan-out.
+Row count after cleaning: **52,930 → 52,922** (8 rows dropped by the rating / visit-mode / calendar range filters; every other defect was structural rather than row-level). Every merge asserts `len(df) == len(transaction)` to catch a fan-out before the row filters run.
 
 ### 1.3 Engineered base features
 

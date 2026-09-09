@@ -99,7 +99,7 @@ Nine relational tables joined on 52,930 transactions. The interesting facts are 
 
 | Property | Value | Consequence |
 |---|---|---|
-| Transactions | 52,930 | — |
+| Transactions | 52,930 raw → 52,922 after cleaning | — |
 | Unique users | 33,530 | — |
 | **Users with exactly one transaction** | **22,912 (68%)** | no history to learn from |
 | **Distinct attractions in transactions** | **30** (catalogue has 1,698) | tiny recommendation space |
