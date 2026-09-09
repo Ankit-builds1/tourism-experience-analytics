@@ -1,0 +1,17 @@
+# Normalise line endings so CI shell blocks never receive CRLF
+* text=auto eol=lf
+
+*.py    text eol=lf
+*.yml   text eol=lf
+*.yaml  text eol=lf
+*.toml  text eol=lf
+*.md    text eol=lf
+*.csv   text eol=lf
+*.txt   text eol=lf
+
+# Binary artifacts - never diff or line-ending-convert these
+*.pkl   binary
+*.ipynb binary linguist-language=Python
+
+# Keep the language stats focused on the code, not the shipped data
+artifacts/*.csv linguist-generated=true

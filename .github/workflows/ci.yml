@@ -1,0 +1,60 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  verify-artifacts:
+    name: Verify artifacts load under the pinned environment
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      # Python 3.12 specifically: the pickles were built under 3.12 with numpy 2.0.2,
+      # and prebuilt wheels are per-minor-version. On 3.13+ pip would try to compile
+      # numpy from source and fail.
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+
+      - name: Install pinned dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+
+      - name: Report resolved versions
+        run: python -m pip list
+
+      - name: Verify artifacts deserialise and predict
+        run: python tests/test_artifacts.py
+
+      - name: Verify the Streamlit app boots
+        run: |
+          nohup python -m streamlit run app.py \
+            --server.headless true --server.port 8501 > streamlit.log 2>&1 &
+          for i in $(seq 1 30); do
+            if curl -sf http://localhost:8501/_stcore/health > /dev/null; then
+              echo "Streamlit responded healthy after ${i}s"
+              exit 0
+            fi
+            sleep 1
+          done
+          echo "App failed to start within 30s:"
+          cat streamlit.log
+          exit 1
+
+      - name: Upload Streamlit log on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: streamlit-log
+          path: streamlit.log
+          if-no-files-found: ignore
